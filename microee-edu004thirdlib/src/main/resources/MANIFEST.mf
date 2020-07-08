@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.edu004.App
+Class-Path: libs/edu003.jar
+
