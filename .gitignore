@@ -6,7 +6,7 @@
 .project
 *.log
 *.swp
-*.jar
+edu*.jar
 target
 *.bluej
 logfile.txt
