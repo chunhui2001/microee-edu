@@ -6,7 +6,7 @@
 │   └── main
 │       ├── java
 │       │   └── com
-│       │       └── edu007fatjar
+│       │       └── edu007untarjar
 │       │           └── App.java
 │       └── resources
 │           └── META-INF
@@ -14,7 +14,7 @@
 └── target
     ├── classes
     │   └── com
-    │       └── edu007fatjar
+    │       └── edu007untarjar
     │           └── App.class
     └── edu007.jar
 

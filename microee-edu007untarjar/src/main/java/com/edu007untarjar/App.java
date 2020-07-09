@@ -1,4 +1,4 @@
-package com.edu007fatjar;
+package com.edu007untarjar;
 
 import com.microee.edu003jar.model.Article;
 
