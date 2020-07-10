@@ -22,6 +22,9 @@
 |||	### 执行jar
 |||	$ java -jar ./target/edu003.jar
 
+||| ### 列出jar包里的内容列表
+||| $ jar tf target/edu003.jar 
+
 ### -cvfm 含义
 c: indicates we want to create a new JAR file.
 v: generates verbose output to standard output.

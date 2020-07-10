@@ -1,0 +1,92 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="edu008ant" basedir="." default="main">
+    <description>
+        Create a Java Project (JAR) with Ant build script
+    </description>
+
+    <property name="src.dir" location="src" />
+    <property name="libs.dir" value="libs" />
+    <property name="target.dir" location="target" />
+    <property name="resources.dir" location="${src.dir}/main/resources" />
+    <property name="classes.dir" location="${target.dir}/classes" />
+    <property name="main-class" value="com.edu008ant.App" />
+
+
+    <property name="dist.dir" location="${target.dir}" />
+    <property name="dist.lib.dir" location="${target.dir}/libs" />
+
+    <path id="classpath">
+        <!-- <fileset dir="${libs.dir}" includes="**/*.jar"/> -->
+        <fileset dir="${libs.dir}">
+            <include name="**/*.jar" />
+            <exclude name="**/*sources.jar"/>
+            <exclude name="**/*javadoc.jar"/>
+        </fileset>
+    </path>
+
+    <!-- install ivy -->
+    <target name="ivy" description="Install ivy">
+        <mkdir dir="${user.home}/.ant/lib" />
+        <get dest="${user.home}/.ant/lib/ivy.jar"
+            src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0-rc1/ivy-2.4.0-rc1.jar" />
+    </target>
+    <!-- ivy end -->
+
+    <target name="clean">
+        <delete dir="${target.dir}"/>
+    </target>
+    <!-- 编译 -->
+    <target name="compile" depends="clean"
+            description="编译">
+        <mkdir dir="${classes.dir}"/>
+        <javac includeantruntime="false" srcdir="src" destdir="${classes.dir}" classpathref="classpath" />
+        <copy todir="${classes.dir}">
+            <fileset dir="${resources.dir}" excludes="**/*.java, **/MANIFEST.md"/>
+        </copy>
+    </target>
+
+    <!-- constructs the external libraries classpath name -->
+    <pathconvert property="classpath.name" pathsep=" ">
+        <path refid="classpath" />
+        <mapper>
+            <chainedmapper>
+                <flattenmapper />
+                <globmapper from="*.jar" to="libs/*.jar" />
+            </chainedmapper>
+        </mapper>
+    </pathconvert>
+
+    <target name="copy-dependencies">
+        <copy todir="${dist.lib.dir}">
+            <fileset dir="${libs.dir}" includes="**/*.jar" excludes="**/*sources.jar, **/*javadoc.jar" />
+        </copy>
+    </target>
+
+    <!-- 构建 -->
+    <target name="jar" depends="compile, copy-dependencies">
+
+        <echo message="classpath.name : ${classpath.name} " />
+        <mkdir dir="${target.dir}"/>
+        <mkdir dir="${dist.dir}" />
+        <mkdir dir="${dist.lib.dir}" />
+
+        <jar destfile="${target.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Class-Path" value="${classpath.name}" />
+            </manifest>
+        </jar>
+    </target>
+    <!-- 运行程序 -->
+    <target name="run" depends="jar">
+        <!-- <java jar="${target.dir}/${ant.project.name}.jar" fork="true"/> -->
+        <java fork="true" classname="${main-class}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${target.dir}/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="main" depends="clean,run"/>
+
+</project>
