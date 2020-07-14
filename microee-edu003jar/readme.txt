@@ -9,6 +9,7 @@
 
 |||	### 编译源文件
 |||	$ javac -d target/classes src/main/java/**/*.java
+||| $ javac -d target/classes `find src -name \*.java -print`
 
 |||	### 创建清单 
 |||	# src/main/resources/META-INF/MANIFEST.mf
