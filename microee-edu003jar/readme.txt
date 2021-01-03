@@ -9,6 +9,7 @@
 
 |||	### 编译源文件
 |||	$ javac -d target/classes src/main/java/**/*.java
+||| $ javac -d target/classes `find src -name \*.java -print`
 
 |||	### 创建清单 
 |||	# src/main/resources/META-INF/MANIFEST.mf
@@ -32,3 +33,7 @@ f: specifies the jarfile to be created.
 m: indicates the manifest file we use. The manifest file includes name-value pairs.
 -C: indicates temporary changes to the directory. Classes are added from this directory to the JAR file. 
 .: The dot indicates all classes (files).
+
+
+### find and print and delete
+$ find . -iname N -exec rm -rf {} \; -print
