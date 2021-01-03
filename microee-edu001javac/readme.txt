@@ -18,3 +18,18 @@ $ javac -d target/classes src/main/java/Hello.java
 
 ### 运行程序
 $ cd ./target/classes && java Hello && cd ../..
+
+### 递归找文件
+$ find -L . -iname "*.iml"
+
+### 递归找文件并删除
+$ find -L . -iname "*.iml" -exec rm -rf {} +
+$ find -L . -iname ".DS_Store"  -exec rm -rf {} +
+$ find -L . -iname ".project"  -exec rm -rf {} +
+$ find -L . -iname ".settings"  -exec rm -rf {} +
+
+### 递归找文件夹
+$ find -L . -type d -iname "node_modules" -print
+
+### java basic
+https://www.ntu.edu.sg/home/ehchua/programming/java/j2_basics.html#zz-1.
